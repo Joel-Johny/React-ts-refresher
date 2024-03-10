@@ -118,6 +118,11 @@
     cursor: pointer;
   }
   
+
+  .strike{
+    text-decoration: line-through;
+
+  }
   @media (max-width: 1100px) {
     .complete,.incomplete {
       width: 45%;

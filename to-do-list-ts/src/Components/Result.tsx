@@ -12,7 +12,7 @@ const Result:React.FC<Props> = ({todos,setTodos}) => {
         <div className="complete">
             <h2>Complete</h2>
             {todos.map((todo)=>{
-                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos}/>
+                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos} key={todo.id}/>
             })}
         </div>
 
@@ -20,7 +20,7 @@ const Result:React.FC<Props> = ({todos,setTodos}) => {
         <h2>InComplete</h2>
 
         {todos.map((todo)=>{
-                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos}/>
+                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos} key={todo.id}/>
             })}
         </div>
         

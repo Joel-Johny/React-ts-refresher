@@ -12,10 +12,13 @@ const Form :React.FC<props> = ({todoString,setter,setTodos}) => {
 
     const handleSubmit = (e:React.FormEvent) =>{
         e.preventDefault()
-        setTodos((oldTodos)=>{
-            return [...oldTodos,{id:Date.now(),name:todoString,isComplete:false}]
-        })
-        setter("")
+        if(todoString){
+            setTodos((oldTodos)=>{
+                return [...oldTodos,{id:Date.now(),name:todoString,isComplete:false}]
+            })
+            setter("")
+        }
+        
     }
 
     const handleInput = (e:React.ChangeEvent<HTMLInputElement>) =>{
