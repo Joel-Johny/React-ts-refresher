@@ -1,32 +1,60 @@
 import React from 'react'
 import { Todo } from '../model'
 import TodoCard from './TodoCard'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+
 import './style.css'
-interface Props{
-    todos:Todo[]
-    setTodos:React.Dispatch<React.SetStateAction<Todo[]>>
+interface Props {
+    todos: Todo[]
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>
 }
-const Result:React.FC<Props> = ({todos,setTodos}) => {
-  return (
-    <div className='container'>
-        <div className="complete">
-            <h2>Complete</h2>
-            {todos.map((todo)=>{
-                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos} key={todo.id}/>
-            })}
-        </div>
+const Result: React.FC<Props> = ({ todos, setTodos }) => {
 
-        <div className="incomplete remove">
-        <h2>InComplete</h2>
+    const handleDragEnd = () => {
+        console.log("Something was dragged")
+    };
 
-        {todos.map((todo)=>{
-                return <TodoCard currentTodo={todo}  alltodos={todos} alltodosSetter={setTodos} key={todo.id}/>
-            })}
-        </div>
-        
-      
-    </div>
-  )
+
+    return (
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <div className='container'>
+                <Droppable droppableId="complete">{(provided) => (
+
+                    <>
+                        <div className="complete" {...provided.droppableProps} ref={provided.innerRef}>
+                            <h2>Complete</h2>
+                            {todos.map((todo, index) => {
+                                console.log("Hi")
+                                return <TodoCard currentTodo={todo} alltodos={todos} alltodosSetter={setTodos} key={todo.id} index={index} />
+
+                            })}
+                            {provided.placeholder}
+
+                        </div>
+
+                    </>
+
+                )}</Droppable>
+
+                <Droppable droppableId="incomplete">{(provided) => (
+
+                    <>
+                        <div className="incomplete remove" {...provided.droppableProps} ref={provided.innerRef}>
+                            <h2>Incomplete</h2>
+                            {provided.placeholder}
+
+                        </div>
+
+                    </>
+
+                )}</Droppable>
+            </div>
+
+
+
+        </DragDropContext>
+
+    )
 }
 
 export default Result
